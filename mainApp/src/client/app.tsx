@@ -14,6 +14,9 @@ const VALID_TABS = ['connection', 'settings', 'support', 'privacy'];
 export default function App() {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
+    // Salesforce redirects back with error/error_description instead of code when authorization fails
+    const oauthError = urlParams.get('error');
+    const oauthErrorDescription = urlParams.get('error_description');
     const initialTab = VALID_TABS.includes(urlParams.get('tab') || '')
         ? urlParams.get('tab')!
         : 'connection';
@@ -25,11 +28,12 @@ export default function App() {
     const [authLoading, setAuthLoading] = useState(true);
 
     const redirectToCleanUrl = () => {
-        // const cleanUrl = getConnectorPortalUrl();
-        // if (window.location.href !== cleanUrl) {
-        //     console.log('Redirecting to clean URL:', cleanUrl);
-        //     window.location.replace(cleanUrl);
-        // }
+        const cleanUrl = getConnectorPortalUrl();
+        const targetWindow = window.top && window.top !== window.self ? window.top : window;
+        if (targetWindow.location.href !== cleanUrl) {
+            console.log('Redirecting to clean URL:', cleanUrl);
+            targetWindow.location.replace(cleanUrl);
+        }
     };
 
     const renderHeader = () => (
@@ -54,11 +58,8 @@ export default function App() {
     };
 
     const checkAuthenticationStatus = async () => {
-        // only redirect to clean URL if no valid tab param is present, and only when
-        // running as the actual top-level page (not embedded, e.g. in Service Portal
-        // Designer's preview iframe) — otherwise this would hijack the parent page.
-        const isEmbedded = window.top !== window.self;
-        if (!isEmbedded && !VALID_TABS.includes(urlParams.get('tab') || '')) {
+        // only redirect to clean URL if no valid tab param is present
+        if (!VALID_TABS.includes(urlParams.get('tab') || '')) {
             redirectToCleanUrl();
         }
         const connectionId = localStorage.getItem('salesforce_connection_id');
@@ -104,7 +105,7 @@ export default function App() {
     };
 
     useEffect(() => {
-        if (code) {
+        if (code || oauthError) {
             setIsCallback(true);
             setAuthLoading(false);
             return;
@@ -118,7 +119,11 @@ export default function App() {
         return (
             <div className="salesforce-integration-app">
                 {renderHeader()}
-                <OAuthCallback code={code} />
+                <OAuthCallback
+                    code={code}
+                    oauthError={oauthError}
+                    oauthErrorDescription={oauthErrorDescription}
+                />
             </div>
         );
     }

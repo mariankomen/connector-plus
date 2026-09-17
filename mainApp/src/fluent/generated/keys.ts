@@ -2160,6 +2160,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: 'a8076fe428f14da4ac13790294aae7e0'
+                        key: {
+                            name: 'x_peekl_peeklogi_0_salesforce_connection'
+                            element: 'login_url'
+                        }
+                    },
+                    {
                         table: 'sys_security_acl_role'
                         id: 'a843ee98a03348038e6aa50b0af9ea0f'
                         key: {
@@ -2260,6 +2268,15 @@ declare global {
                                     name: 'x_peekl_peeklogi_0.salesforce_integration_user_paid'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'b3fc235335a6476ea4fb09ed674dc915'
+                        key: {
+                            name: 'x_peekl_peeklogi_0_salesforce_connection'
+                            element: 'login_url'
+                            language: 'en'
                         }
                     },
                     {
