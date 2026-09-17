@@ -1,0 +1,41 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "serialNumber": "urn:uuid:e05471dc-9a80-4088-9af6-fbf1b0cdfa63",
+  "metadata": {
+    "timestamp": "2026-08-21T17:51:39.900Z",
+    "tools": {
+      "components": [
+        {
+          "type": "library",
+          "name": "sdk-build-plugins",
+          "group": "@servicenow",
+          "version": "4.4.0",
+          "author": "ServiceNow"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "name": "peeklogicconnector",
+      "version": "0.0.1",
+      "bom-ref": "pkg:servicenow/peeklogicconnector@0.0.1?sys_scope_id=471c3ae92ff24b10decdb86e8ea4e30a",
+      "licenses": [
+        {
+          "license": {
+            "name": "UNLICENSED"
+          }
+        }
+      ],
+      "purl": "pkg:servicenow/peeklogicconnector@0.0.1?sys_scope_id=471c3ae92ff24b10decdb86e8ea4e30a"
+    }
+  },
+  "components": [],
+  "dependencies": [
+    {
+      "ref": "pkg:servicenow/peeklogicconnector@0.0.1?sys_scope_id=471c3ae92ff24b10decdb86e8ea4e30a"
+    }
+  ]
+}

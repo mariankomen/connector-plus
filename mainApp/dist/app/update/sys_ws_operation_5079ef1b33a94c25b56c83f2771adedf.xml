@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<record_update table="sys_ws_operation">
+  <sys_ws_operation action="INSERT_OR_UPDATE">
+    <sys_id>5079ef1b33a94c25b56c83f2771adedf</sys_id>
+    <sys_scope display_value="x_peekl_peeklogi_0">471c3ae92ff24b10decdb86e8ea4e30a</sys_scope>
+    <sys_update_name>sys_ws_operation_5079ef1b33a94c25b56c83f2771adedf</sys_update_name>
+    <active>true</active>
+    <consumes>application/json,application/xml,text/xml</consumes>
+    <consumes_customized>false</consumes_customized>
+    <default_operation_uri>/api/x_peekl_peeklogi_0/x_peekl_peeklogi_0_salesforce_integratio/connection</default_operation_uri>
+    <enforce_acl>b364f768014a4195b6829b7c94e4bce2</enforce_acl>
+    <http_method>POST</http_method>
+    <name>/connection</name>
+    <operation_script><![CDATA[(function process(request, response) {
+    const body = request.body ? request.body.data : {};
+    const writer = response.getStreamWriter();
+    response.setContentType('application/json');
+
+    const clientId = body.clientId;
+    const clientSecret = body.clientSecret;
+    const redirectUri = body.redirectUri;
+    if (!clientId || !clientSecret || !redirectUri) {
+        response.setStatus(400);
+        writer.writeString(JSON.stringify({
+            success: false,
+            error: 'clientId, clientSecret and redirectUri are required'
+        }));
+        return;
+    }
+
+    try {
+        const connectionService = new x_peekl_peeklogi_0.SalesforceConnectionService();
+        const result = connectionService.saveConnection({
+            client_id: clientId,
+            client_secret: clientSecret,
+            redirect_uri: redirectUri
+        });
+        if (!result.success) {
+            response.setStatus(500);
+            writer.writeString(JSON.stringify({
+                success: false,
+                error: result.error || 'Failed to initialize connection'
+            }));
+            return;
+        }
+
+        response.setStatus(200);
+        writer.writeString(JSON.stringify({
+            success: true,
+            connectionId: result.connection_id
+        }));
+    } catch (error) {
+        gs.error('Error in Salesforce connection init handler: ' + error.message + '\nStack: ' + error.stack);
+        response.setStatus(500);
+        writer.writeString(JSON.stringify({
+            success: false,
+            error: 'Internal server error: ' + error.message
+        }));
+    }
+})(request, response);
+
+]]></operation_script>
+    <operation_uri>/api/x_peekl_peeklogi_0/x_peekl_peeklogi_0_salesforce_integratio/connection</operation_uri>
+    <produces>application/json,application/xml,text/xml</produces>
+    <produces_customized>false</produces_customized>
+    <relative_path>/connection</relative_path>
+    <request_example/>
+    <requires_acl_authorization>true</requires_acl_authorization>
+    <requires_authentication>true</requires_authentication>
+    <requires_snc_internal_role>true</requires_snc_internal_role>
+    <short_description>Initialize Salesforce connection secrets</short_description>
+    <sys_policy/>
+    <web_service_definition>f89faf14848b42f19978202db15ce2ca</web_service_definition>
+    <web_service_version/>
+  </sys_ws_operation>
+</record_update>

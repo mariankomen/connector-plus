@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<record_update table="sys_module">
+  <sys_module action="INSERT_OR_UPDATE">
+    <sys_id>040ca1e854c844fe8f0d2dc0fd3ac6ec</sys_id>
+    <sys_scope display_value="x_peekl_peeklogi_0">471c3ae92ff24b10decdb86e8ea4e30a</sys_scope>
+    <sys_update_name>sys_module_040ca1e854c844fe8f0d2dc0fd3ac6ec</sys_update_name>
+    <content><![CDATA[(function executeRule(current, previous) {
+    var sysId = current.sys_id ? current.sys_id.toString() : current.getUniqueValue();
+    if (!sysId) {
+        gs.error('Task sync delete BR: unable to determine sys_id');
+        return;
+    }
+
+    var connectionId = '';
+    try {
+        var connectionService = new x_peekl_peeklogi_0.SalesforceConnectionService();
+        var connectionLookup = connectionService.getCurrentUserConnection();
+        if (connectionLookup && connectionLookup.success) {
+            connectionId = connectionLookup.connection_id;
+        } else {
+            throw new Error('Could not find connection');
+        }
+    } catch (err) {
+        gs.error('Task sync delete BR: connection lookup failed - ' + err.message);
+        return;
+    }
+
+    var taskSyncService = new x_peekl_peeklogi_0.TaskSyncService();
+    if (!taskSyncService.isSyncEnabled(connectionId, current.getTableName())) {
+        return;
+    }
+
+    var payload = {
+        eventType: 'delete',
+        table: current.getTableName(),
+        connectionId: connectionId,
+        record: {
+            sys_id: sysId
+        }
+    };
+
+    var queueService = new x_peekl_peeklogi_0.SyncEventQueueService();
+    queueService.enqueuePayload(payload);
+})(current, previous);]]></content>
+    <external_source>false</external_source>
+    <path>x_peekl_peeklogi_0/peeklogicconnector/0.0.1/src/server/business-rules/task-sync-delete.js</path>
+    <sys_name>x_peekl_peeklogi_0/peeklogicconnector/0.0.1/src/server/business-rules/task-sync-delete.js</sys_name>
+  </sys_module>
+</record_update>

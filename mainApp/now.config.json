@@ -1,0 +1,6 @@
+{
+  "scope": "x_peekl_peeklogi_0",
+  "scopeId": "471c3ae92ff24b10decdb86e8ea4e30a",
+  "name": "Peeklogic Connector Plus",
+  "tsconfigPath": "./src/server/tsconfig.json"
+}

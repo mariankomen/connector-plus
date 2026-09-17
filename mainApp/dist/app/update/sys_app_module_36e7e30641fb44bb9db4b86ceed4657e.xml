@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<record_update table="sys_app_module">
+  <sys_app_module action="INSERT_OR_UPDATE">
+    <sys_id>36e7e30641fb44bb9db4b86ceed4657e</sys_id>
+    <sys_scope display_value="x_peekl_peeklogi_0">471c3ae92ff24b10decdb86e8ea4e30a</sys_scope>
+    <sys_update_name>sys_app_module_36e7e30641fb44bb9db4b86ceed4657e</sys_update_name>
+    <active>true</active>
+    <application>e936c5c8b79a482d950a6752ba54a84f</application>
+    <link_type>DIRECT</link_type>
+    <order>100</order>
+    <query>/sp?id=peeklogic_salesforce_connector_plus</query>
+    <title>Salesforce Integration</title>
+    <window_name>_blank</window_name>
+  </sys_app_module>
+</record_update>

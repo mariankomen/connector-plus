@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<record_update table="sys_app_module">
+  <sys_app_module action="INSERT_OR_UPDATE">
+    <sys_id>15126913b97b4bcf98e456e3056d8d63</sys_id>
+    <sys_scope display_value="x_peekl_peeklogi_0">471c3ae92ff24b10decdb86e8ea4e30a</sys_scope>
+    <sys_update_name>sys_app_module_15126913b97b4bcf98e456e3056d8d63</sys_update_name>
+    <active>true</active>
+    <application>e936c5c8b79a482d950a6752ba54a84f</application>
+    <link_type>DIRECT</link_type>
+    <order>120</order>
+    <query>/sp?id=peeklogic_salesforce_connector_plus&amp;tab=privacy</query>
+    <title>App Privacy Policy</title>
+    <window_name>_blank</window_name>
+  </sys_app_module>
+</record_update>
