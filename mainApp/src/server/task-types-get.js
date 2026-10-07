@@ -51,6 +51,7 @@
             }
         }));
         
+        
     } catch (error) {
         gs.error('Error fetching task types: ' + error.message + '\nStack: ' + error.stack);
         response.setStatus(500);
