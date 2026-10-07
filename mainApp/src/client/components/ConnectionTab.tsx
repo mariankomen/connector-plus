@@ -26,6 +26,7 @@ const base64UrlEncode = (bytes: Uint8Array) => {
 const generateCodeVerifier = () => {
     const randomBytes = new Uint8Array(32)
     crypto.getRandomValues(randomBytes)
+    
     return base64UrlEncode(randomBytes)
 }
 
